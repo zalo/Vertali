@@ -6,7 +6,7 @@ A work-in-progress (read: buggy) VS Code Plugin for Vertically Aligning Text for
 
 > Allows users to highlight blocks of code and right-click to vertically align them by special characters.
 
-![Vertali Vertical Alignment Demo](images/Demo1.gif)
+![Vertali Vertical Alignment Demo](images/Demo.gif)
 
 ## Known Issues
 
