@@ -1,0 +1,65 @@
+{
+	"name": "vertali",
+	"displayName": "Vertali",
+	"description": "A Vertical Alignment Formatter",
+	"publisher": "zalo",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.33.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/zalo/Vertali.git"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"vertical",
+		"alignment",
+		"formatter",
+		"autoformatter"
+	],
+	"icon": "images/icon.png",
+	"galleryBanner": {
+		"color": "#ffffff",
+		"theme": "light"
+	},
+	"activationEvents": [
+		"onStartupFinished",
+		"onCommand:vertali.Format"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "vertali.Format",
+				"title": "Vertali: Vertically Align Text"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"when": "editorHasSelection",
+					"command": "vertali.Format",
+					"group": "navigation@0"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install"
+	},
+	"devDependencies": {
+		"@types/node": "^10.12.21",
+		"tslint": "^5.12.1",
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.28"
+	},
+	"dependencies": {
+		"typescript": "^3.1.1"
+	}
+}
