@@ -1,61 +1,24 @@
-# [Symplex](https://marketplace.visualstudio.com/items?itemName=zalo.symplex)
+# Vertali
 
-A Symbolic CAS that operates directly on Javascript and Python code.
+A work-in-progress (read: buggy) VS Code Plugin for Vertically Aligning Text for more visually pleasing code.
 
 ## Features
 
-> Allows users to highlight blocks of math code and right-click to symbolically `integrate`, `diff`, `limit`, `solve`, `series`, and more!
+> Allows users to highlight blocks of code and right-click to vertically align them by special characters.
 
-![Extremum Demo](images/Demo1.gif)
-
-
-> Enables beautiful code-to-LaTeX conversion via the `latex()` and unevaluated `Integral` and `Derivative` functions.
-
-![LaTeX Demo](images/Demo2.gif)
-
-
-## Requirements
-
-Symplex requires that Python and `SymPy` are installed.  `SymPy` can be installed with `pip install SymPy`.
+![Vertali Vertical Alignment Demo](images/Demo1.gif)
 
 ## Known Issues
 
-- Javascript parsing is somewhat fragile, this is due for a major refactor to better accomodate for the inconsistences in the nodegraph sourceFile output.
-- Only variable assignment and basic arithmetic/trigonometric operations on real numbers are supported.  No for-Loops, control-statements, etc.
-
-## Adding new languages
-
-To add a new language:
-- Implement the conversion of a block of that language's code to a SymPy string (`convertToSympy()`) inside a new `*LANGUAGE*Support.ts` file.
-- Throughout `extension.ts`, add a new case for your [language's identifier](https://code.visualstudio.com/docs/languages/identifiers), calling your `convertToSympy()` function.
-- In `python/symplex.py`, add a case for your language's conversion (SymPy supports codegen in many languages already, so check to see if it's already there).
-- Add it to the `package.json` as well and Test it by building the extension with `F5`!
+- It often produces incorrect results, or results with extra spaces.
 
 ### Future Work
 
-Add support for 
-- Gradients
-- Vectors/Matrices
-- Algebraic "Functions"
-- [Wolfram CAS Backend?](https://blog.wolfram.com/2019/05/16/announcing-the-wolfram-client-library-for-python/)
+ - Fix the bugs
+ - Produce more intuitive results when applied to the entire file.
 
 ## Release Notes
 
-### 0.0.4 - Add Snippets
-
-Group all Symplex functionality underneath the `symplex.Evaluate` command.  Add snippets which document a few of the SymPy features that Symplex exposes.   Also make Python parsing slightly more robust. 
-
-
-### 0.0.3 - Major Refactor
-
-Allow writing of arbitrary SymPy operations, encapsulate adding support for new languages, and add LaTeX output!
-
-
-### 0.0.2 - Python Support
-
-Since `SymPy` operates natively in Python syntax, it was straight-forward to add basic Python support.
-
-
 ### 0.0.1 - Proof of Concept
 
-Have proven that the typescript AST tree can be transformed into a `SymPy` compatible format, and that Python scripts can be invoked to perform arbitrary work for the editor at low-latencies.  The infrastructure is ready for massive expansion in capability, once the right UI affordances are found and the Javascript/Typescript parsing code is improved.
+Initial proof of concept.

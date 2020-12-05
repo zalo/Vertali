@@ -8,34 +8,46 @@ function charIsSpecialCharacter(char: string): boolean {
 	return false;
 }
 
-function VerticalAlignTwoLines(
-	code: string[], referenceLine: number, toModify: number): void {
-	let refLine = code[toModify];
-	let outLine = code[referenceLine];
-
-	for (let outInd = 0; outInd < refLine.length; outInd++){
+function AlignAToB(A: string, B: string): string {
+	let aLength = A.length;//, bLength = B.length;
+	for (let outInd = 0; outInd < aLength; outInd++){
 		// Continue if they already match or not a special character
-		if (outLine[outInd] === refLine[outInd] || !charIsSpecialCharacter(outLine[outInd])) { continue; }
+		if (A[outInd] === B[outInd] || !charIsSpecialCharacter(A[outInd])) { continue; }
 
 		//Iterate through the reference string until we find a match
-		for (let refInd = outInd; refInd < outLine.length; refInd++) {
-			if (outLine[outInd] === refLine[refInd]) {
+		for (let refInd = outInd; refInd < B.length; refInd++) {
+			if (A[outInd] === B[refInd]) {
 				// Match Found! Now to insert the appropriate number of spaces
-				code[referenceLine] = outLine.slice(0, outInd);
-				for (let diff = 0; diff < refInd - outInd; diff++) { code[referenceLine] += " "; }
-				code[referenceLine] += outLine.slice(outInd, -1);
-				outLine = code[referenceLine];
-				outInd = refInd;
+				let temp = A.slice(0, outInd);
+				for (let diff = 0; diff < refInd - outInd; diff++) { temp += " "; }
+				temp    += A.slice(outInd);
+				A = temp; outInd = refInd; aLength = A.length;
+				break;
 			}
-
 		}
+	}
+	return A;
+}
+
+function VerticalAlignTwoLines(
+	code: string[], a: number, b: number): void {
+	let aLine = code[a];
+	let bLine = code[b];
+
+	let AToB = AlignAToB(aLine, bLine);
+	let BToA = AlignAToB(bLine, aLine);
+
+	if (AToB.length < BToA.length) {
+		code[a] = AToB;
+	} else {
+		code[b] = BToA;
 	}
 }
 
 function VerticalAlign(stringToAlign:string) : string {
 	let lines = stringToAlign.split("\n");
 
-	for (let iters = 0; iters < 1; iters++) {
+	for (let iters = 0; iters < 10; iters++) {
 		for (let i = 0; i < lines.length - 1; i++) {
 			VerticalAlignTwoLines(lines, i, i + 1);
 		}
@@ -45,9 +57,8 @@ function VerticalAlign(stringToAlign:string) : string {
 	}
 
 	let outputCode = "";
-	//for (let i = 0; i < lines.length; i++){ outputCode += lines[i] + "\n";}
 	lines.forEach(line => { outputCode += line + "\n"; });
-	return outputCode;
+	return outputCode.slice(0, -1);
 }
 
 export function activate(context: vscode.ExtensionContext) {
